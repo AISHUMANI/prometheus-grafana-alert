@@ -1,0 +1,16 @@
+global:
+  storageClass: "gp3"  # Change to match your Kubernetes environment
+
+prometheus:
+  storage: "10Gi"
+
+grafana:
+  storage: "5Gi"
+  adminUser: "admin"
+  adminPassword: "grafana"
+
+alertmanager:
+  storage: "2Gi"
+
+pushgateway:
+  storage: "2Gi"
