@@ -3,14 +3,21 @@ global:
 
 prometheus:
   storage: "10Gi"
+  service:
+    type: LoadBalancer
+    port: 9090
 
 grafana:
   storage: "5Gi"
   adminUser: "admin"
   adminPassword: "grafana"
+  service:
+    type: LoadBalancer  # Set service type to LoadBalancer
+    port: 80  # External port for Grafana UI
 
 alertmanager:
   storage: "2Gi"
 
 pushgateway:
   storage: "2Gi"
+

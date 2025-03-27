@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
 spec:
   replicas: 1
   selector:
@@ -14,16 +17,23 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:9.3.2
+          image: grafana/grafana:latest
           env:
             - name: GF_SECURITY_ADMIN_USER
-              value: {{ .Values.grafana.adminUser }}
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-admin-credentials
+                  key: admin-user
             - name: GF_SECURITY_ADMIN_PASSWORD
-              value: {{ .Values.grafana.adminPassword }}
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-admin-credentials
+                  key: admin-password
           volumeMounts:
-            - name: data-volume
+            - name: grafana-storage
               mountPath: /var/lib/grafana
       volumes:
-        - name: data-volume
+        - name: grafana-storage
           persistentVolumeClaim:
             claimName: grafana-pvc
+
