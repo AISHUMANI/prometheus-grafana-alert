@@ -20,3 +20,18 @@ data:
         static_configs:
           - targets: ["pushgateway:9091"]
 
+      - job_name: "kubernetes-apiservers"
+        kubernetes_sd_configs:
+          - role: endpoints
+
+      - job_name: "kubernetes-nodes"
+        kubernetes_sd_configs:
+          - role: node
+
+      - job_name: "kubernetes-pods"
+        kubernetes_sd_configs:
+          - role: pod
+
+      - job_name: "kubernetes-services"
+        kubernetes_sd_configs:
+          - role: service
